@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ProductoCard from './components/ProductoCard.vue'
+import BuscadorProductos from './components/BuscadorProductos.vue'
 
 const titulo = 'ProductoGest'
 const productos = ref([
@@ -18,6 +19,10 @@ const productosFiltrados = computed(() => {
   )
 })
 
+function actualizarBusqueda(texto) {
+  busqueda.value = texto
+}
+
 function limpiarBusqueda() {
   busqueda.value = ''
 }
@@ -29,18 +34,11 @@ function limpiarBusqueda() {
     <p>Catálogo de productos informáticos</p>
     <p>Productos en el catálogo: {{ productos.length }}</p>
 
-    <div class="buscador">
-      <label for="buscar">Buscar producto:</label>
-      <input
-        id="buscar"
-        v-model="busqueda"
-        type="search"
-        placeholder="Ej.: Ratón"
-      />
-      <button type="button" @click="limpiarBusqueda" :disabled="!busqueda">
-        Limpiar búsqueda
-      </button>
-    </div>
+    <BuscadorProductos
+      :busqueda="busqueda"
+      @actualizar-busqueda="actualizarBusqueda"
+      @limpiar-busqueda="limpiarBusqueda"
+    />
 
     <p>Productos encontrados: {{ productosFiltrados.length }}</p>
     <p v-if="productosFiltrados.length === 0" role="status">
@@ -58,9 +56,4 @@ function limpiarBusqueda() {
 
 <style scoped>
 main { max-width: 720px; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif; }
-.buscador { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: 1.5rem; }
-input { padding: .5rem; }
-button { padding: .5rem .8rem; cursor: pointer; }
-button:disabled { cursor: not-allowed; }
-li { padding: .5rem 0; }
 </style>
