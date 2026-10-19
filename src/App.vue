@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
+import ProductoCard from './components/ProductoCard.vue'
 
 const titulo = 'ProductoGest'
 const productos = ref([
@@ -46,14 +47,11 @@ function limpiarBusqueda() {
       No hay productos que coincidan con la búsqueda.
     </p>
     <ul v-else>
-      <li
+      <ProductoCard
         v-for="producto in productosFiltrados"
         :key="producto.id"
-        :title="`Categoría: ${producto.categoria}`"
-      >
-        <strong>{{ producto.nombre }}</strong> —
-        {{ producto.precio }} € ({{ producto.categoria }})
-      </li>
+        :producto="producto"
+      />
     </ul>
   </main>
 </template>
