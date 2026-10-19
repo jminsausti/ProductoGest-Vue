@@ -1,12 +1,14 @@
 <script setup>
-// El padre es propietario de la búsqueda: el hijo recibe su valor.
+// El componente recibe del padre el texto actual de búsqueda.
+// Las props son de solo lectura: el hijo no debe modificarlas directamente.
 defineProps({
   busqueda: { type: String, required: true }
 })
 
-// El hijo notifica las acciones del usuario sin modificar la prop.
+// Declaramos los dos eventos que este componente puede emitir hacia App.vue.
 const emit = defineEmits(['actualizar-busqueda', 'limpiar-busqueda'])
 
+// Cada pulsación en el input comunica al padre el texto introducido.
 function actualizar(evento) {
   emit('actualizar-busqueda', evento.target.value)
 }
@@ -22,6 +24,7 @@ function actualizar(evento) {
       placeholder="Ej.: Ratón"
       @input="actualizar"
     />
+    <!-- El botón notifica al padre que debe vaciar el texto de búsqueda. -->
     <button type="button" :disabled="!busqueda" @click="emit('limpiar-busqueda')">
       Limpiar búsqueda
     </button>
@@ -29,6 +32,7 @@ function actualizar(evento) {
 </template>
 
 <style scoped>
+/* Los estilos scoped se aplican a la vista de este componente. */
 .buscador { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: 1.5rem; }
 input { padding: .5rem; }
 button { padding: .5rem .8rem; cursor: pointer; }
