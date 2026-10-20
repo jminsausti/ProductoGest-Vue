@@ -1,0 +1,8 @@
+{
+  "productos": [
+    { "id": "1", "nombre": "Portátil", "precio": 750, "categoria": "Ordenadores" },
+    { "id": "2", "nombre": "Ratón", "precio": 25, "categoria": "Periféricos" },
+    { "id": "3", "nombre": "Teclado", "precio": 45, "categoria": "Periféricos" },
+    { "id": "4", "nombre": "Monitor", "precio": 180, "categoria": "Pantallas" }
+  ]
+}
