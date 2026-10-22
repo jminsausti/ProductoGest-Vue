@@ -1,12 +1,15 @@
 <script setup>
+import { useCarritoStore } from '../stores/carrito'
 import { ref, watch } from 'vue'
 import axios from 'axios'
+
 
 // Vue Router convierte :id de la URL en una prop gracias a props: true.
 const props = defineProps({ id: { type: String, required: true } })
 const producto = ref(null)
 const cargando = ref(false)
 const error = ref('')
+const carrito = useCarritoStore()
 
 async function cargarProducto(id) {
   cargando.value = true
@@ -47,6 +50,9 @@ watch(() => props.id, cargarProducto, { immediate: true })
       <h3>{{ producto.nombre }}</h3>
       <p>Categoría: {{ producto.categoria }}</p>
       <p>Precio: {{ producto.precio }} €</p>
+      <button type="button" @click="carrito.agregarProducto(producto)">
+          Añadir al carrito
+      </button>
     </article>
     <RouterLink :to="{ name: 'catalogo' }">← Volver al catálogo</RouterLink>
   </main>

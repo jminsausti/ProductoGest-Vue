@@ -12,6 +12,16 @@ function verDetalle() {
   // Vue Router sustituye :id por el identificador del producto.
   router.push({ name: 'detalle', params: { id: props.producto.id } })
 }
+
+import { useCarritoStore } from '../stores/carrito'
+
+const carrito = useCarritoStore()
+
+// Si el componente ya tiene defineProps, conserva el existente:
+// necesitamos poder acceder a producto desde la plantilla.
+
+
+
 </script>
 
 <template>
@@ -20,6 +30,9 @@ function verDetalle() {
     {{ producto.precio }} € ({{ producto.categoria }})
     <!-- En este ejemplo provocamos la navegación mediante un evento. -->
     <button type="button" @click="verDetalle">Ver detalle</button>
+    <button type="button" @click="carrito.agregarProducto(producto)">
+        Añadir al carrito
+    </button>
   </li>
 </template>
 
